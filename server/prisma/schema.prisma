@@ -1,0 +1,70 @@
+// Database Provider
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Prisma Client Generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Tracks Table - Core Table
+model Track {
+  id          Int        @id @default(autoincrement())
+  title       String
+  artist      String
+  url         String     // Public or local path
+  localPath   String?    // Optional local file path
+  bpm         Float?
+  key         String?
+  energy      Float?
+  genreId     Int?
+  countryId   Int?
+  source      String
+  features    Json?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  genre       Genre?     @relation(fields: [genreId], references: [id])
+  country     Country?   @relation(fields: [countryId], references: [id])
+  aiFeatures  AIFeature[]
+  favoritedBy User[]     @relation("Favorites")
+}
+
+// Genres Table
+model Genre {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  tracks      Track[]   // One-to-many relationship with Track
+}
+
+// Countries Table
+model Country {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  code        String?   // Optional country code (e.g., US, UK)
+  tracks      Track[]   // One-to-many relationship with Track
+}
+
+// AI Features Table - For Machine Learning Processing
+model AIFeature {
+  id          Int       @id @default(autoincrement())
+  trackId     Int       @unique
+  spectrogram String?   // Path to spectrogram image or data
+  embeddings  Json?     // AI embeddings for machine learning
+  recommendations Json? // AI-generated recommendations
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  track       Track     @relation(fields: [trackId], references: [id])
+}
+
+// Users Table (Optional Future Feature)
+model User {
+  id          Int       @id @default(autoincrement())
+  username    String    @unique
+  email       String    @unique
+  favorites   Track[]   @relation("Favorites")
+}

@@ -1,0 +1,42 @@
+# Ignore the virtual environment
+venv/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore data files (if they are large or sensitive)
+data/
+*.csv
+*.json
+*.sqlite
+*.db
+
+# Ignore model files (if they are generated or large)
+models/
+*.h5
+*.pkl
+*.pt
+*.onnx
+
+# Ignore Jupyter Notebook checkpoints
+notebooks/.ipynb_checkpoints/
+
+# Ignore environment and dependency files
+.env
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# Ignore compiled code
+*.so
+
+# Ignore dependency lock files (optional)
+Pipfile.lock
+poetry.lock
+
+# Ignore unnecessary system files
+Thumbs.db
