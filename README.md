@@ -79,7 +79,7 @@ AI DJ is an advanced music mixing application that uses AI to analyze, fetch, an
 ### 1️⃣ Clone the Repository
 
 ```sh
-git clone https://github.com/yourusername/ai-dj.git
+git clone https://github.com/Hammediora/Programming-files.git
 cd ai-dj
 ```
 
